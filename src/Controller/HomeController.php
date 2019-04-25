@@ -12,8 +12,16 @@ class HomeController extends AbstractController
      */
     public function index()
     {
+      $names = [
+        'roger',
+        'andrew',
+        'david',
+        'laurent'
+      ];
+
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
+            'names' => $names
         ]);
     }
 
