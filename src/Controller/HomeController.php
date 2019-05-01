@@ -14,7 +14,9 @@ class HomeController extends AbstractController
     {
       $names = [
         'roger',
+        '',
         'andrew',
+        '',
         'david',
         'laurent'
       ];
@@ -23,13 +25,5 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
             'names' => $names
         ]);
-    }
-
-    /**
-    * @Route("/contact", name="contact_index")
-    */
-    public function contact()
-    {
-        return $this->json(["contact"]);
     }
 }

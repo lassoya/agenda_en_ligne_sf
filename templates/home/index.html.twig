@@ -4,8 +4,8 @@
 
 {% block body %}
 <ul>
-  {% for name in names if 'e' in name %}
-    <li>{{ name}}</li>
+  {% for name in names if name is not empty %}
+    <li>{{ name |replace({'e': 'i', 'r': 'u'}) | upper }}</li>
   {% endfor %}
 </ul>
 
