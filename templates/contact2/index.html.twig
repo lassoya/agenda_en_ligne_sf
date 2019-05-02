@@ -4,4 +4,13 @@
 
 {% block body %}
 
+<h1>Liste de contacts</h1>
+{% for contact in contacts %}
+  {{contact.firstname  ~ ' ' ~ contact.lastname}}
+  <a href="{{ path('contact2_edit', {id: contact.id}) }}">Modifier</a>&nbsp;
+  <a href="{{ path('contact2_remove', {id: contact.id}) }}">Supprimer</a>
+  <br>
+{% endfor%}
+
+
 {% endblock %}
