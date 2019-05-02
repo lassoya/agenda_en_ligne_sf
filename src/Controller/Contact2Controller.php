@@ -41,7 +41,8 @@ class Contact2Controller extends AbstractController
     public function edit(Contact $contact){
 
       return $this->render('contact2/edit.html.twig', [
-        'contact' => $contact
+        'contact' => $contact,
+        'genders' => Contact::GENDERS
       ]);
     }
 }

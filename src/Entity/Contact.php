@@ -9,6 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Contact
 {
+    const GENDERS = [
+      1 => 'HOMME',
+      2 => 'FEMME',
+      3 => 'NON DEFINI'
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
