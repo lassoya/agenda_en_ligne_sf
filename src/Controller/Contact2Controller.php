@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\SerializerInterface;
 use App\Repository\ContactRepository;
 use App\Entity\Contact;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,20 +40,31 @@ class Contact2Controller extends AbstractController
     /**
     * @Route("/edit/{id}", name="contact2_edit", methods={"GET", "POST"})
     */
-    public function edit(Request $request, Contact $contact){
+    public function edit(Request $request, Contact $contact, EntityManagerInterface $entityManager, SerializerInterface $serializer){
         if('POST' === $request->getMethod()) {
           $data = $request->request->all();
+          $data['gender'] = (int) $data['gender'];
+
+          $serializer->deserialize(json_encode($data), Contact::class, 'json', [
+            'object_to_populate' => $contact
+          ]);
+
+          dump($contact);
+          exit;
+          /*
           $contact->setFirstname($data['firstname']);
           $contact->setLastname($data['lastname']);
             try{
                 $birthday = new \DateTime($data['birthday']);
                 $contact->setBirthday($birthday);
             } catch(\Exception $error){}
-        
+
           $contact->setGender($data['gender']);
-          dump($data);
-          dump($contact);
-          echo  'POST'; exit;
+          */
+
+
+          $entityManager->flush();
+          return $this->redirectToRoute('contact2_index');
         }
 
       return $this->render('contact2/edit.html.twig', [
