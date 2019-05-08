@@ -21,7 +21,7 @@
 
   <div class="form-group">
     <label for="gender">Genre</label>
-    <select class="form-control" id="gender">
+    <select class="form-control" id="gender" name="gender">
       {% for key, gender in genders %}
         <option {{ key == contact.gender ? 'selected' : '' }} value="{{key}}">{{gender}}</option>
       {% endfor %}

@@ -40,9 +40,21 @@ class Contact2Controller extends AbstractController
     * @Route("/edit/{id}", name="contact2_edit", methods={"GET", "POST"})
     */
     public function edit(Request $request, Contact $contact){
-        dump($request->get('firstname'));
-        dump($request->getMethod());
-        exit;
+        if('POST' === $request->getMethod()) {
+          $data = $request->request->all();
+          $contact->setFirstname($data['firstname']);
+          $contact->setLastname($data['lastname']);
+            try{
+                $birthday = new \DateTime($data['birthday']);
+                $contact->setBirthday($birthday);
+            } catch(\Exception $error){}
+        
+          $contact->setGender($data['gender']);
+          dump($data);
+          dump($contact);
+          echo  'POST'; exit;
+        }
+
       return $this->render('contact2/edit.html.twig', [
         'contact' => $contact,
         'genders' => Contact::GENDERS
