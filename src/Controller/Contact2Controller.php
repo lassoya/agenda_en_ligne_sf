@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use App\Repository\ContactRepository;
 use App\Entity\Contact;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,8 +39,10 @@ class Contact2Controller extends AbstractController
     /**
     * @Route("/edit/{id}", name="contact2_edit", methods={"GET", "POST"})
     */
-    public function edit(Contact $contact){
-
+    public function edit(Request $request, Contact $contact){
+        dump($request->get('firstname'));
+        dump($request->getMethod());
+        exit;
       return $this->render('contact2/edit.html.twig', [
         'contact' => $contact,
         'genders' => Contact::GENDERS
