@@ -27,7 +27,15 @@
       {% endfor %}
     </select>
   </div>
+
+  <button type="button" class="btn btn-success" id="add">AJOUTER</button><br><br>
+
    <button type="submit" class="btn btn-primary mb-2">Enregistrer</button>
 </form>
 
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {{ encore_entry_script_tags('contact') }}
 {% endblock %}

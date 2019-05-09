@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 /**
@@ -41,6 +43,16 @@ class Contact
      * @ORM\Column(type="integer")
      */
     private $gender;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Phone", mappedBy="contact")
+     */
+    private $phones;
+
+    public function __construct()
+    {
+        $this->phones = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -91,6 +103,37 @@ class Contact
     public function setGender(int $gender): self
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Phone[]
+     */
+    public function getPhones(): Collection
+    {
+        return $this->phones;
+    }
+
+    public function addPhone(Phone $phone): self
+    {
+        if (!$this->phones->contains($phone)) {
+            $this->phones[] = $phone;
+            $phone->setContact($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhone(Phone $phone): self
+    {
+        if ($this->phones->contains($phone)) {
+            $this->phones->removeElement($phone);
+            // set the owning side to null (unless already changed)
+            if ($phone->getContact() === $this) {
+                $phone->setContact(null);
+            }
+        }
 
         return $this;
     }
