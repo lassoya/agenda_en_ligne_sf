@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use App\Repository\ContactRepository;
 use App\Entity\Contact;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,12 +39,21 @@ class Contact2Controller extends AbstractController
     }
 
     /**
+    * @Route("/add", name="contact2_add", methods={"GET", "POST"})
     * @Route("/edit/{id}", name="contact2_edit", methods={"GET", "POST"})
     */
-    public function edit(Request $request, Contact $contact, EntityManagerInterface $entityManager, SerializerInterface $serializer){
+    public function edit(Request $request, Contact $contact = null, EntityManagerInterface $entityManager, ObjectNormalizer $normalizer){
+        if(!$contact) {
+          $contact = new Contact();
+          $entityManager->persist($contact);
+        }
+
         if('POST' === $request->getMethod()) {
           $data = $request->request->all();
+          /*
           $data['gender'] = (int) $data['gender'];
+          dump($normalizer->denormalize($data, Contact::class));
+          exit;
 
           $serializer->deserialize(json_encode($data), Contact::class, 'json', [
             'object_to_populate' => $contact
@@ -51,7 +61,8 @@ class Contact2Controller extends AbstractController
 
           dump($contact);
           exit;
-          /*
+          */
+
           $contact->setFirstname($data['firstname']);
           $contact->setLastname($data['lastname']);
             try{
@@ -60,8 +71,6 @@ class Contact2Controller extends AbstractController
             } catch(\Exception $error){}
 
           $contact->setGender($data['gender']);
-          */
-
 
           $entityManager->flush();
           return $this->redirectToRoute('contact2_index');

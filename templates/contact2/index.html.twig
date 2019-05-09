@@ -5,6 +5,9 @@
 {% block body %}
 
 <h1>Liste de contacts</h1>
+
+<a href="{{ path('contact2_add') }}">AJOUTER UN CONTACT</a><br><br>
+
 {% for contact in contacts %}
   {{contact.firstname  ~ ' ' ~ contact.lastname}}
   <a href="{{ path('contact2_edit', {id: contact.id}) }}">Modifier</a>&nbsp;
