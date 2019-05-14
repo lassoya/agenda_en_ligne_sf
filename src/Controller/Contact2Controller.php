@@ -50,6 +50,8 @@ class Contact2Controller extends AbstractController
 
         if('POST' === $request->getMethod()) {
           $data = $request->request->all();
+          dump($data);
+          exit;
           /*
           $data['gender'] = (int) $data['gender'];
           dump($normalizer->denormalize($data, Contact::class));
