@@ -28,6 +28,13 @@
     </select>
   </div>
 
+  <div class="form-group">
+    <label for="phone">Numéro</label>
+    {% for phone in contact.phones %}
+      <input type="text" class="form-control" value="{{ phone.number}}" name="phone" id="birthday">
+    {% endfor %}
+  </div>
+
   <button type="button" class="btn btn-success" id="add">AJOUTER</button><br><br>
 
    <button type="submit" class="btn btn-primary mb-2">Enregistrer</button>
