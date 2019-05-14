@@ -1,5 +1,6 @@
 import $ from 'jquery';
 
 $('#add').click(() => {
-  alert('yooo');
+  const firstInput = $('#container-number input').first().clone();
+  $('#container-number').append(firstInput);
 });

@@ -7,9 +7,12 @@
 ## Installation un projet **Symfony**
 - [ ] Documentation Symfony [ici](https://symfony.com/doc/current/best_practices/creating-the-project.html)
 
-## Gestion des assets d'un projete **Symfony**
+## Gestion des assets d'un projet (Webpack)**Symfony**
 - [ ] Documentation Symfony [ici](https://symfony.com/doc/current/frontend.html)
 
+
+## Commandes Webpack
+- ```yarn encore dev --watch``` permet de recompiler les fichiers js et css à chaque modification
 
 ## Commandes Symfony de base
 
