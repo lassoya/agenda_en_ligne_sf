@@ -9,6 +9,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use App\Repository\ContactRepository;
 use App\Entity\Contact;
+use App\Entity\Phone;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -50,8 +51,6 @@ class Contact2Controller extends AbstractController
 
         if('POST' === $request->getMethod()) {
           $data = $request->request->all();
-          dump($data);
-          exit;
           /*
           $data['gender'] = (int) $data['gender'];
           dump($normalizer->denormalize($data, Contact::class));
@@ -73,6 +72,14 @@ class Contact2Controller extends AbstractController
             } catch(\Exception $error){}
 
           $contact->setGender($data['gender']);
+
+          foreach($data['phone'] as $phone){
+            $_phone = new Phone();
+            $entityManager->persist($_phone);
+            $_phone->setNumber($phone);
+            $_phone->setContact($contact);
+            //$contact->addPhone($_phone);
+          }
 
           $entityManager->flush();
           return $this->redirectToRoute('contact2_index');
