@@ -45,11 +45,15 @@ class Contact2Controller extends AbstractController
     * @Route("/edit/{id}", name="contact2_edit", methods={"GET", "POST"})
     */
     public function edit(Request $request, Contact $contact = null, EntityManagerInterface $entityManager, ObjectNormalizer $normalizer, PhoneRepository $phoneRepository){
+        //si le contact n'existe pas on instancie un nouveau contact
+        // ( nouvel enregistrement en BDD)
         if(!$contact) {
           $contact = new Contact();
+          // on le persiste pour indiquer à doctrine de le prendre en compte
           $entityManager->persist($contact);
         }
 
+        // Quand le formulaire est envoyé
         if('POST' === $request->getMethod()) {
           $data = $request->request->all();
           /*
@@ -74,20 +78,32 @@ class Contact2Controller extends AbstractController
 
           $contact->setGender($data['gender']);
 
+          // on boucle sur la liste des numeros $phones => tableau contenant
+          // number et id
           foreach($data['phone'] as $phone){
+            // S'il y a un id dans le tableau $phone c'est que l'enregistrement
+            // existe en BDD, on va donc récupérer cet enregistrement
             if(isset($phone['id'])){
+                //on récupère le numéro de téléphone en BDD
                 $_phone = $phoneRepository->find($phone['id']);
-            } else {
+            }
+            // Sinon c'est un nouveau numéro de téléphone
+            else {
+              //on instancie un nouveau numéro de téléphone
               $_phone = new Phone();
+              // on le persiste pour indiquer à Doctrine de le prendr
+              // en compte
               $entityManager->persist($_phone);
             }
-
+            // on met à jour le numéro dans l'object $_phone
             $_phone->setNumber($phone['number']);
+            // on indique que le téléphone appartient à ce contact
             $_phone->setContact($contact);
             //$contact->addPhone($_phone);
           }
-
+          // on sauvegarde les informations en BDD
           $entityManager->flush();
+          // on redirige sur la page d'accueil
           return $this->redirectToRoute('contact2_index');
         }
 
