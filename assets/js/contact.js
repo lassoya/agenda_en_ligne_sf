@@ -15,6 +15,10 @@ $('#add').click(() => {
 
 //on rajoute un evenement qui va écouter le click du bouton remove
 $('.btn-remove').click(function(){
+  //on masque la plus proche div parent qui a la classe row
   $(this).closest('div.row').hide();
+  // on se position sur la plus proche div parent
+  // dès qu'on est dessus on fait un find pour retrouver l'élement qui a la
+  // classe remove et on indique que sa vauleur vaut true
   $(this).closest('div.row').find('.remove').val('true');
 });
