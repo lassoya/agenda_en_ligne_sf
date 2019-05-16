@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use App\Repository\ContactRepository;
+use App\Repository\PhoneRepository;
 use App\Entity\Contact;
 use App\Entity\Phone;
 use Doctrine\ORM\EntityManagerInterface;
@@ -43,7 +44,7 @@ class Contact2Controller extends AbstractController
     * @Route("/add", name="contact2_add", methods={"GET", "POST"})
     * @Route("/edit/{id}", name="contact2_edit", methods={"GET", "POST"})
     */
-    public function edit(Request $request, Contact $contact = null, EntityManagerInterface $entityManager, ObjectNormalizer $normalizer){
+    public function edit(Request $request, Contact $contact = null, EntityManagerInterface $entityManager, ObjectNormalizer $normalizer, PhoneRepository $phoneRepository){
         if(!$contact) {
           $contact = new Contact();
           $entityManager->persist($contact);
@@ -72,15 +73,16 @@ class Contact2Controller extends AbstractController
             } catch(\Exception $error){}
 
           $contact->setGender($data['gender']);
-            dump($data['phone']);
-            exit;
 
-            
           foreach($data['phone'] as $phone){
+            if(isset($phone['id'])){
+                $_phone = $phoneRepository->find($phone['id']);
+            } else {
+              $_phone = new Phone();
+              $entityManager->persist($_phone);
+            }
 
-            $_phone = new Phone();
-            $entityManager->persist($_phone);
-            $_phone->setNumber($phone);
+            $_phone->setNumber($phone['number']);
             $_phone->setContact($contact);
             //$contact->addPhone($_phone);
           }
