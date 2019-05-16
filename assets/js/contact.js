@@ -12,3 +12,9 @@ $('#add').click(() => {
   firstInput.attr('name', 'phone[][number]');
   $('#container-number').append(firstInput);
 });
+
+//on rajoute un evenement qui va écouter le click du bouton remove
+$('.btn-remove').click(function(){
+  $(this).closest('div.row').hide();
+  $(this).closest('div.row').find('.remove').val('true');
+});

@@ -31,8 +31,16 @@
   <div class="form-group" id="container-number">
     <label>Numéro</label>
     {% for key, phone in contact.phones %}
-      <input type="hidden"  value="{{ phone.id}}" name="phone[{{key}}][id]">
-      <input type="text" class="form-control" value="{{ phone.number}}" name="phone[{{key}}][number]">
+      <div class="row">
+        <div class="col col-8">
+          <input type="hidden" value="{{ phone.id}}" name="phone[{{key}}][id]">
+          <input class="remove" type="hidden" value="false" name="phone[{{key}}][remove]">
+          <input type="text" class="form-control" value="{{ phone.number}}" name="phone[{{key}}][number]">
+        </div>
+        <div class="col col-4">
+          <button type="button"class="btn btn-danger btn-remove">Supprimer</button>
+        </div>
+      </div>
       {% else %}
       <input type="text" class="form-control" value="" name="phone[][number]">
     {% endfor %}
