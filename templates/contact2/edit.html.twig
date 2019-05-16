@@ -30,10 +30,11 @@
 
   <div class="form-group" id="container-number">
     <label>Numéro</label>
-    {% for phone in contact.phones %}
-      <input type="text" class="form-control" value="{{ phone.number}}" name="phone[]">
+    {% for key, phone in contact.phones %}
+      <input type="hidden"  value="{{ phone.id}}" name="phone[{{key}}][id]">
+      <input type="text" class="form-control" value="{{ phone.number}}" name="phone[{{key}}][number]">
       {% else %}
-      <input type="text" class="form-control" value="" name="phone[]">
+      <input type="text" class="form-control" value="" name="phone[][number]">
     {% endfor %}
   </div>
 

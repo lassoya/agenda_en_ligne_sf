@@ -72,8 +72,12 @@ class Contact2Controller extends AbstractController
             } catch(\Exception $error){}
 
           $contact->setGender($data['gender']);
+            dump($data['phone']);
+            exit;
 
+            
           foreach($data['phone'] as $phone){
+
             $_phone = new Phone();
             $entityManager->persist($_phone);
             $_phone->setNumber($phone);
