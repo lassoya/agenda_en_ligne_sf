@@ -34,6 +34,13 @@
   </a>
 {% endif %}
 
+<ul>
+{% for phone in contact.phones %}
+  <li>{{ phone.number }} <a href="{{ path('phone_remove', {'phone': phone.id, 'contact': contact.id }) }}">SUPPRIMER</a></li>
+{% endfor %}
+</ul>
+
+
 <br><br>
    <button type="submit" class="btn btn-primary mb-2">Enregistrer</button>
 </form>

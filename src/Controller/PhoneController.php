@@ -41,4 +41,16 @@ class PhoneController extends AbstractController
 
       return $this->render('phone/edit.html.twig');
     }
+
+    /**
+     * @Route("/phone/remove/{contact}/{phone}", name="phone_remove")
+     */
+    public function remove(EntityManagerInterface $em, Contact $contact, Phone $phone) {
+        $em->remove($phone);
+        $em->flush();
+
+        return $this->redirectToRoute('contact2_edit', [
+          'id' => $contact->getId()
+        ]);
+    }
 }
