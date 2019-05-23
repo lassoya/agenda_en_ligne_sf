@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Repository\ContactRepository;
 use App\Repository\PhoneRepository;
 use App\Entity\Contact;
@@ -15,6 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @Route("/contact2")
+ * @IsGranted("ROLE_USER")
  */
 class Contact2Controller extends AbstractController
 {

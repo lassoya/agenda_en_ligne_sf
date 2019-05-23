@@ -49,6 +49,11 @@ class Contact
      */
     private $phones;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     */
+    private $created_by;
+
     public function __construct()
     {
         $this->phones = new ArrayCollection();
@@ -134,6 +139,18 @@ class Contact
                 $phone->setContact(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->created_by;
+    }
+
+    public function setCreatedBy(?User $created_by): self
+    {
+        $this->created_by = $created_by;
 
         return $this;
     }
