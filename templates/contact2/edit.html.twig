@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<h1>Edition de contact</h1>
+<h1>{{ contact.id ? 'Edition de contact' : 'Ajout de contact'}}</h1>
 <form action="" method="POST">
   <div class="form-group">
     <label for="firstname">Firstname</label>
@@ -28,27 +28,13 @@
     </select>
   </div>
 
-  <div class="form-group" id="container-number">
-    <label>Numéro</label>
-    {% for key, phone in contact.phones %}
-      <div class="row">
-        <div class="col col-8">
-          <input type="hidden" value="{{ phone.id}}" name="phone[{{key}}][id]">
-          <input class="remove" type="hidden" value="false" name="phone[{{key}}][remove]">
-          <input type="text" class="form-control" value="{{ phone.number}}" name="phone[{{key}}][number]">
-        </div>
-        <div class="col col-4">
-          <button type="button"class="btn btn-danger btn-remove">Supprimer</button>
-        </div>
-      </div>
-      {% else %}
-      <input type="text" class="form-control" value="" name="phone[][number]">
-    {% endfor %}
-  </div>
+{% if contact.id is not null %}
+  <a href="{{ path('phone_add', {'idContact': contact.id }) }}">
+    <button type="button" class="btn btn-success" id="add">AJOUTER UN NUMERO</button>
+  </a>
+{% endif %}
 
-
-  <button type="button" class="btn btn-success" id="add">AJOUTER UN NUMERO</button><br><br>
-
+<br><br>
    <button type="submit" class="btn btn-primary mb-2">Enregistrer</button>
 </form>
 
