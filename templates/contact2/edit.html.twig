@@ -36,7 +36,7 @@
 
 <ul>
 {% for phone in contact.phones %}
-  <li>{{ phone.number }} <a href="{{ path('phone_remove', {'phone': phone.id, 'contact': contact.id }) }}">SUPPRIMER</a></li>
+  <li>{{ phone.number }} <a href="{{ path('phone_edit', {'phone': phone.id, 'idContact': contact.id }) }}">MODIFER</a> - <a href="{{ path('phone_remove', {'phone': phone.id, 'contact': contact.id }) }}">SUPPRIMER</a></li>
 {% endfor %}
 </ul>
 
